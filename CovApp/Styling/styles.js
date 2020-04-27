@@ -33,4 +33,14 @@ export default StyleSheet.create({
     margin: 5,
     backgroundColor: '#fff',
   },
+  countryTitle: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 35,
+  },
 });

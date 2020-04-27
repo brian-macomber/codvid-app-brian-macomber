@@ -27,7 +27,7 @@ export default class GlobalComponent extends React.Component {
       .then(responseJson => {
         this.setState({
           loading: false,
-          dataSource: responseJson.Countries,
+          dataSource: responseJson.Global,
         });
       })
       .catch(error => console.log(error)); //to catch the errors if any
@@ -45,9 +45,6 @@ export default class GlobalComponent extends React.Component {
   };
   renderItem = data => (
     <TouchableOpacity style={styles.list}>
-      <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-        {data.item.Country}:
-      </Text>
       <Text> Total Confirmed Cases: {data.item.TotalConfirmed}</Text>
       <Text> Death Total: {data.item.TotalDeaths}</Text>
       <Text> Total Recovered Cases: {data.item.TotalRecovered}</Text>
@@ -63,21 +60,16 @@ export default class GlobalComponent extends React.Component {
     }
     return (
       <View style={styles.container_api}>
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginTop: 35,
-          }}>
-          COVID-19 Statistics by Country
+        <Text style={styles.title}>Global Covid-19 Statistics: </Text>
+        <Text style={styles.list}>
+          Confirmed Cases: {this.state.dataSource.TotalConfirmed}
         </Text>
-        <FlatList
-          data={this.state.dataSource}
-          ItemSeparatorComponent={this.FlatListItemSeparator}
-          renderItem={item => this.renderItem(item)}
-          keyExtractor={item => item.Country}
-        />
+        <Text style={styles.list}>
+          Recovered Cases: {this.state.dataSource.TotalRecovered}
+        </Text>
+        <Text style={styles.list}>
+          Death Total: {this.state.dataSource.TotalDeaths}
+        </Text>
       </View>
     );
   }

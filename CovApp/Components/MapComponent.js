@@ -1,77 +1,101 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import MapView, {AnimatedRegion, Animated} from 'react-native-maps';
+import MapView, {
+  AnimatedRegion,
+  Animated,
+  Marker,
+  Callout,
+} from 'react-native-maps';
 
-// import styles from './Styling/styles';
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    marginBottom: 10,
-  },
-  mapContainer: {
-    position: 'relative',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  container_api: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  list: {
-    paddingVertical: 4,
-    margin: 5,
-    backgroundColor: '#fff',
-  },
-});
+import csvjson from '../countryData/csvjson';
+import styles from '../Styling/styles';
 
 export default class MapComponent extends Component {
-  //   componentDidMount(){
-  //     // get data from csv file
-  //   csvFilePath='<path to csv file>'
-  //   csv=require('csvtojson')
-  //   csv()
-  //   .fromFile(csvFilePath)
-  //   .then((jsonObj)=>{
-  //       console.log(jsonObj);
-  //       /**
-  //        * [
-  //        * 	{a:"1", b:"2", c:"3"},
-  //        * 	{a:"4", b:"5". c:"6"}
-  //        * ]
-  //        */
-  //   })
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      dataSource: [],
+    };
+  }
+  componentDidMount() {
+    fetch('https://api.covid19api.com/summary')
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          loading: false,
+          dataSource: responseJson.Countries,
+        });
+      })
+      .catch(error => console.log(error)); //to catch the errors if any
+  }
 
-  // // Async / await usage
-  // const jsonArray=await csv().fromFile(csvFilePath);
+  getMarkerData() {
+    markerDataDict = {};
 
-  //   }
+    let {dataSource} = this.state;
+
+    // go through api data
+    dataSource.forEach(countryData => {
+      markerDataDict[countryData.CountryCode] = {
+        country: countryData.Country,
+        countryCode: countryData.CountryCode,
+        cases: countryData.TotalConfirmed,
+        coord: null,
+      };
+    });
+
+    csvjson.forEach(countryRow => {
+      if (markerDataDict[countryRow.country]) {
+        markerDataDict[countryRow.country].coord = {
+          latitude: Number(countryRow.latitude),
+          longitude: Number(countryRow.longitude),
+        };
+      }
+    });
+
+    return Object.values(markerDataDict);
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: 42.3429507,
-            longitude: -71.1031784,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
+        <MapView style={styles.map}>
+          {this.getMarkerData().map(markerData => {
+            if (markerData.coord) {
+              return (
+                <Marker
+                  key={markerData.countryCode}
+                  pinColor="#8a2be2"
+                  coordinate={{
+                    latitude: markerData.coord.latitude,
+                    longitude: markerData.coord.longitude,
+                  }}>
+                  <Callout>
+                    <Text style={styles.countryTitle}>
+                      {markerData.country}
+                    </Text>
+                    <Text> Number of cases: {markerData.cases}</Text>
+                  </Callout>
+                </Marker>
+              );
+            } else {
+              return null;
+            }
+          })}
+          <Marker
+            key="YEET"
+            pinColor="#8a2be2"
+            coordinate={{
+              latitude: 1,
+              longitude: 1,
+            }}>
+            <Callout>
+              <Text>Country: MY COUNTRY</Text>
+              <Text> Number of cases: </Text>
+            </Callout>
+          </Marker>
+        </MapView>
       </View>
     );
   }

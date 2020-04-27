@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import TestComponent from './Components/testComponent';
+import GlobalComponent from './Components/GlobalComponent';
 import MapComponent from './Components/MapComponent';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -16,7 +16,7 @@ class App extends Component {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Map" component={MapComponent} />
-          <Tab.Screen name="Stats" component={TestComponent} />
+          <Tab.Screen name="Stats" component={GlobalComponent} />
         </Tab.Navigator>
       </NavigationContainer>
     );

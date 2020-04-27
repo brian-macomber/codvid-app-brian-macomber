@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
 });
 
 export default class TestComponent extends React.Component {
-  static navigationOptions = ({navigation}) => {
-    return {
-      title: 'Yonk',
-      headerStyle: {backgroundColor: '#fff'},
-      headerTitleStyle: {textAlign: 'center', flex: 1},
-    };
-  };
+  // static navigationOptions = ({navigation}) => {
+  //   return {
+  //     title: 'Yonk',
+  //     headerStyle: {backgroundColor: '#fff'},
+  //     headerTitleStyle: {textAlign: 'center', flex: 1},
+  //   };
+  // };
   constructor(props) {
     super(props);
     this.state = {
@@ -86,9 +86,12 @@ export default class TestComponent extends React.Component {
   };
   renderItem = data => (
     <TouchableOpacity style={styles.list}>
-      <Text style={styles.lightText}>
-        {data.item.Country}: {data.item.TotalConfirmed}
+      <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+        {data.item.Country}:
       </Text>
+      <Text> Total Confirmed Cases: {data.item.TotalConfirmed}</Text>
+      <Text> Death Total: {data.item.TotalDeaths}</Text>
+      <Text> Total Recovered Cases: {data.item.TotalRecovered}</Text>
     </TouchableOpacity>
   );
   render() {
@@ -101,6 +104,15 @@ export default class TestComponent extends React.Component {
     }
     return (
       <View style={styles.container_api}>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginTop: 35,
+          }}>
+          COVID-19 Statistics by Country
+        </Text>
         <FlatList
           data={this.state.dataSource}
           ItemSeparatorComponent={this.FlatListItemSeparator}

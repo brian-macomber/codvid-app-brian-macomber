@@ -6,3 +6,12 @@
 - CODVID cases per country based on a date.
 - Summary of total cases for the world
 - Live Summary for the World
+
+#### Step 1 and 2: setup environment + build hello application
+- Base react app is the first commit made to this repository.
+
+#### Step 3: Develop use case to display the map
+![Step 3](/CovApp/images/Step3_DisplayMap.png)
+
+#### Step 4: Display the data in the application as text
+![Step 4](/CovApp/images/Step4_DisplayData.png)

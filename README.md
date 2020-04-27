@@ -21,6 +21,5 @@
 ![Step 4](/CovApp/images/Step4_DisplayData.png)
 
 #### Step 5: Display data on map & display global statistics
-
-![Step 5_1](/CovApp/images/Step5_GlobalStats.png)
+![Step 5_1](/CovApp/images/Step5_Global.png)
 ![Step 5_2](/CovApp/images/Step5_MarkersOnMap.png)

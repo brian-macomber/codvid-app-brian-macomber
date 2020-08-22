@@ -4,9 +4,7 @@
 
 - CODVID cases per country on a MAP
 - CODVID cases per country Live on a MAP (changes)
-- CODVID cases per country based on a date.
 - Summary of total cases for the world
-- Live Summary for the World
 
 #### Step 1 and 2: setup environment + build hello application
 

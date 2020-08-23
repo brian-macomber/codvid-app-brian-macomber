@@ -83,18 +83,6 @@ export default class MapComponent extends Component {
               return null;
             }
           })}
-          <Marker
-            key="YEET"
-            pinColor="#8a2be2"
-            coordinate={{
-              latitude: 1,
-              longitude: 1,
-            }}>
-            <Callout>
-              <Text>Country: MY COUNTRY</Text>
-              <Text> Number of cases: </Text>
-            </Callout>
-          </Marker>
         </MapView>
       </View>
     );

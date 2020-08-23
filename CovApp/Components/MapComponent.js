@@ -83,11 +83,6 @@ export default class MapComponent extends Component {
               return null;
             }
           })}
-            <Callout>
-              <Text>Country: MY COUNTRY</Text>
-              <Text> Number of cases: </Text>
-            </Callout>
-          </Marker>
         </MapView>
       </View>
     );
